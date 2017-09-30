@@ -2,13 +2,14 @@
 * @Author: 靳振国
 * @Date:   2017-09-29 15:34:53
 * @Last Modified by:   靳振国
-* @Last Modified time: 2017-09-30 08:54:00
+* @Last Modified time: 2017-09-30 10:32:30
 */
 function snake(){
 	this.sna = ['4_1','5_1','6_1'];   //设置坐标
 	this.box = document.querySelector('.box');    //获取盒子
 	this.direction = '40';   //设置默认向下
 	this.flag = {'4_1':true,'5_1':true,'6_1':true};    //给flag添加一个属性
+	this.food = '';
 }
 snake.prototype = {                 //原型函数，获取方法
 	start:function(){
@@ -16,6 +17,7 @@ snake.prototype = {                 //原型函数，获取方法
 		this.drawSnake();
 		this.move();
 		this.key();
+		this.dropFood();
 	},
 
 	draw:function(){
@@ -47,19 +49,34 @@ snake.prototype = {                 //原型函数，获取方法
 				newt = `${arr[0]*1+1}_${arr[1]}`;
 			}
 
-			if(arr[0]<1 || arr[0]>18 || arr[1]<1 || arr[1]>18){     //判断墙壁位置设置边界
+			if(arr[0]<0 || arr[0]>19 || arr[1]<0 || arr[1]>19 || that.flag[newt]){     //判断墙壁位置设置边界
 				clearInterval(that.t);//事件函数停止
-				alert('游戏结束,按f5重新开始');         
+				alert('你死了，菜鸡,按f5重新开始');         
 				return ;          //结束
 			}
 
-			that.sna.push(newt);      //新头得位置
-			that.flag[newt] = true;     
-			let weiba = that.sna.shift();       //设置尾巴
-			delete that.flag[weiba];     //删除旧的尾巴啊
-			document.getElementById(weiba).classList.remove('hot');   //移除尾巴后面的样式
-			that.drawSnake();     //调用
-		},1000)
+			
+			     //调用
+
+			if(newt == that.food){
+				that.flag[newt] = true;
+				that.sna.push(newt);
+				document.getElementById(that.food).style.background = '#fff';
+				that.dropFood();
+			}else{
+				that.sna.push(newt);      //新头得位置
+				that.flag[newt] = true;     
+				let weiba = that.sna.shift();       //设置尾巴
+				delete that.flag[weiba];     //删除旧的尾巴啊
+				document.getElementById(weiba).classList.remove('hot');   //移除尾巴后面的样式
+
+			}
+			that.drawSnake();
+			if(that.food == that.sna){
+				x = Math.floor(Math.random()*20);
+				y = Math.floor(Math.random()*20);
+			}
+		},200)
 		},
 		key:function(){
 			document.onkeydown = function(e){
@@ -71,6 +88,15 @@ snake.prototype = {                 //原型函数，获取方法
 			}.bind(this);   //不懂
 		},
 		dropFood:function(){
+			let x,y;
+			do{
+				x = Math.floor(Math.random()*20);
+				y = Math.floor(Math.random()*20);
+			}while(this.flag[`${x}_${y}`]){
+					this.food = `${x}_${y}`;
+				document.getElementById(this.food).style.background = 'red';
+			}
+		},
 
-		}
 	}
+		
