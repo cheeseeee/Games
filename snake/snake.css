@@ -1,0 +1,40 @@
+/*
+* @Author: 靳振国
+* @Date:   2017-09-29 15:34:53
+* @Last Modified by:   靳振国
+* @Last Modified time: 2017-09-29 19:08:46
+*/
+*{
+	margin: 0;
+	padding:0;
+	list-style: none;
+}
+.box{
+	width: 600px;
+	height: 600px;
+	margin: 100px auto;
+	background: #000;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -300px;
+	margin-left: -300px;
+}
+.litter{
+	width: 29px;
+	height: 29px;
+/* 	border-bottom: 1px solid #000;
+	border-right: 1px solid #000; 
+	占了位置，下面空出来的黑色边用背景代替*/
+
+	margin-right: 1px;
+	margin-bottom: 1px;
+
+	background: #fff;
+	float: left;
+}
+.hot{
+	background: yellow;
+}
